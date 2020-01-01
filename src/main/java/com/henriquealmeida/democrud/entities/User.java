@@ -7,10 +7,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+//setting entity
 @Entity
 public class User implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	//setting the primary key and auto_increment
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
