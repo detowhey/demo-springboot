@@ -11,13 +11,15 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 //setting entity
 @Entity
 @Table (name = "tb_user")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	// setting the primary key and auto_increment
+	// setting the primary key and auto_increment with GenerationType.IDENTITY 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -26,6 +28,8 @@ public class User implements Serializable {
 	private String phone;
 	private String password;
 	
+	// notation not to occur object loops
+	@JsonIgnore
 	@OneToMany(mappedBy = "client")
 	private List<Order> orders = new ArrayList<>();
 
@@ -115,6 +119,4 @@ public class User implements Serializable {
 			return false;
 		return true;
 	}
-
-	
 }
