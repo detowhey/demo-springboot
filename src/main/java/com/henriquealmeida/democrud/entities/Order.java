@@ -37,7 +37,7 @@ public class Order implements Serializable {
 	
 	@OneToMany(mappedBy = "id.order")
 	// "id.order" why the OrderItem id has the ORDER ID
-	private Set <OrderItem> items = new HashSet<>();
+	private Set<OrderItem> items = new HashSet<>();
 	
 
 	public Order() {
