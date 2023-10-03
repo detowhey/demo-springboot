@@ -1,4 +1,4 @@
-package com.henriquealmeida.democrud.controller;
+package com.henriquealmeida.democrud.controllers;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import com.henriquealmeida.democrud.services.CategoryService;
 
 @RestController
 @RequestMapping(value = "/categories")
-public class CategoryResource {
+public class CategoryController {
 
 	@Autowired
 	private CategoryService service;

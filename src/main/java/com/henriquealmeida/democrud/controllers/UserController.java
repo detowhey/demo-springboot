@@ -1,4 +1,4 @@
-package com.henriquealmeida.democrud.controller;
+package com.henriquealmeida.democrud.controllers;
 
 import java.net.URI;
 import java.util.List;
@@ -20,7 +20,7 @@ import com.henriquealmeida.democrud.services.UserService;
 
 @RestController
 @RequestMapping(value = "/users")
-public class UserResource {
+public class UserController {
 
 	@Autowired
 	private UserService service;

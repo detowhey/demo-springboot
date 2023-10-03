@@ -1,4 +1,4 @@
-package com.henriquealmeida.democrud.controller;
+package com.henriquealmeida.democrud.controllers;
 
 import java.util.List;
 
@@ -9,25 +9,25 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.henriquealmeida.democrud.domain.Product;
-import com.henriquealmeida.democrud.services.ProductService;
+import com.henriquealmeida.democrud.domain.Order;
+import com.henriquealmeida.democrud.services.OrderService;
 
 @RestController
-@RequestMapping(value = "/products")
-public class ProductResource {
+@RequestMapping(value = "/orders")
+public class OrderController {
 
 	@Autowired
-	private ProductService service;
+	private OrderService service;
 
 	@GetMapping
-	public ResponseEntity<List<Product>> findAll() {
-		List<Product> list = service.findAll();
+	public ResponseEntity<List<Order>> findAll() {
+		List<Order> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 	
 	@GetMapping (value = "/{id}")
-	public ResponseEntity<Product> finById(@PathVariable Long id){
-		Product obj = service.findById(id);
+	public ResponseEntity<Order> finById(@PathVariable Long id){
+		Order obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
 }

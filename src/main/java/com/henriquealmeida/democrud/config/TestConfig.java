@@ -1,25 +1,10 @@
 package com.henriquealmeida.democrud.config;
 
-import java.time.Instant;
-import java.util.Arrays;
-
+import com.henriquealmeida.democrud.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-
-import com.henriquealmeida.democrud.domain.Category;
-import com.henriquealmeida.democrud.domain.Order;
-import com.henriquealmeida.democrud.domain.OrderItem;
-import com.henriquealmeida.democrud.domain.Payment;
-import com.henriquealmeida.democrud.domain.Product;
-import com.henriquealmeida.democrud.domain.User;
-import com.henriquealmeida.democrud.domain.enu.OrderStatus;
-import com.henriquealmeida.democrud.repositories.CategoryRepository;
-import com.henriquealmeida.democrud.repositories.OrderItemRepository;
-import com.henriquealmeida.democrud.repositories.OrderRepository;
-import com.henriquealmeida.democrud.repositories.ProductRepository;
-import com.henriquealmeida.democrud.repositories.UserRepository;
 
 /*
 *	class specifies for configuration, notation
