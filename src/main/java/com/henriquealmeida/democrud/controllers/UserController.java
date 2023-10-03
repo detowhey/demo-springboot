@@ -3,6 +3,8 @@ package com.henriquealmeida.democrud.controllers;
 import java.net.URI;
 import java.util.List;
 
+import com.henriquealmeida.democrud.dto.UserRequestDTO;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,39 +24,43 @@ import com.henriquealmeida.democrud.services.UserService;
 @RequestMapping(value = "/users")
 public class UserController {
 
-	@Autowired
-	private UserService service;
+    private final UserService service;
 
-	@GetMapping
-	public ResponseEntity<List<User>> findAll() {
-		List<User> list = service.findAll();
-		return ResponseEntity.ok().body(list);
-	}
+    @Autowired
+    public UserController(UserService service) {
+        this.service = service;
+    }
 
-	@GetMapping(value = "/{id}")
-	public ResponseEntity<User> finById(@PathVariable Long id) {
-		User obj = service.findById(id);
-		return ResponseEntity.ok().body(obj);
-	}
+    @GetMapping
+    public ResponseEntity<List<User>> findAll() {
+        return ResponseEntity.ok().body(service.findAll());
+    }
 
-	@PostMapping
-	public ResponseEntity<User> insert(@RequestBody User obj) {
-		obj = service.insert(obj);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
-		return ResponseEntity.created(uri).body(obj);
-	}
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<User> finById(@PathVariable Long id) {
+        return ResponseEntity.ok().body(service.findById(id));
+    }
 
-	@DeleteMapping(value = "{id}")
-	public ResponseEntity<Void> delete(@PathVariable Long id) {
-		service.delete(id);
-		return ResponseEntity.noContent().build();
-	}
-	
-	@PutMapping(value = "{id}")
-	public ResponseEntity<User> update(@PathVariable Long id, @RequestBody User obj){
-		obj = service.update(id, obj);
-		return ResponseEntity.ok().body(obj);
-	}
-	
+    @PostMapping
+    public ResponseEntity<User> insert(@RequestBody UserRequestDTO userRequestDTO) {
+        User user = this.dtoToUser(userRequestDTO);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}").buildAndExpand(user.getId()).toUri();
+        return ResponseEntity.created(uri).body(service.insert(user));
+    }
 
+    @DeleteMapping(value = "{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping(value = "{id}")
+    public ResponseEntity<User> update(@PathVariable Long id, @RequestBody User newDataUser) {
+        return ResponseEntity.ok().body(service.update(id, newDataUser));
+    }
+
+    private User dtoToUser(UserRequestDTO userRequestDTO) {
+        return new ModelMapper().map(userRequestDTO, User.class);
+    }
 }

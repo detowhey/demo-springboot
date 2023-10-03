@@ -16,44 +16,45 @@ import com.henriquealmeida.democrud.exceptions.ResourceNotFoundException;
 @Service
 public class UserService {
 
-	@Autowired
-	private UserRepository repository;
+    private final UserRepository userRepository;
 
-	public List<User> findAll() {
-		return repository.findAll();
-	}
+    @Autowired
+    public UserService(UserRepository repository) {
+        this.userRepository = repository;
+    }
 
-	public User findById(Long id) {
-		Optional<User> obj = repository.findById(id);
-		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
-	}
-	
-	public User insert (User obj) {
-		return repository.save(obj);
-	}
-	
-	public void delete (Long id) {
-		try {
-			repository.deleteById(id);
-		} catch (EmptyResultDataAccessException e) {
-			throw new ResourceNotFoundException(id);
-		} catch (DataIntegrityViolationException e) {
-			throw new DataBaseException(e.getMessage());
-		}
-		
-	}
-	
-	public User update (Long id, User obj) {
-		// the getOne method is more efficient because it only prepares the object. Without accessing the database
-		User entity = repository.getOne(id);
-		updateData(entity,obj);
-		return repository.save(entity);
-	}
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
 
-	private void updateData(User entity, User obj) {
-		entity.setName(obj.getName());
-		entity.setEmail(obj.getEmail());
-		entity.setPhone(obj.getPhone());
-		
-	}
+    public User findById(Long id) {
+        Optional<User> optionalUser = userRepository.findById(id);
+        return optionalUser.orElseThrow(() -> new ResourceNotFoundException(id));
+    }
+
+    public User insert(User obj) {
+        return userRepository.save(obj);
+    }
+
+    public void delete(Long id) {
+        try {
+            userRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException(id);
+        } catch (DataIntegrityViolationException e) {
+            throw new DataBaseException(e.getMessage());
+        }
+    }
+
+    public User update(Long id, User newDataUser) {
+        User oldDataUser = this.findById(id);
+        updateData(oldDataUser, newDataUser);
+        return userRepository.save(oldDataUser);
+    }
+
+    private void updateData(User oldDataUser, User newDataUser) {
+        oldDataUser.setName(newDataUser.getName());
+        oldDataUser.setEmail(newDataUser.getEmail());
+        oldDataUser.setPhone(newDataUser.getPhone());
+    }
 }
