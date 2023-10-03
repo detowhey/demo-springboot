@@ -1,4 +1,4 @@
-package com.henriquealmeida.democrud.resources;
+package com.henriquealmeida.democrud.controller;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.henriquealmeida.democrud.entities.Order;
+import com.henriquealmeida.democrud.domain.Order;
 import com.henriquealmeida.democrud.services.OrderService;
 
 @RestController

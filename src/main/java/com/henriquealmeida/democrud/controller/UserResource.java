@@ -1,4 +1,4 @@
-package com.henriquealmeida.democrud.resources;
+package com.henriquealmeida.democrud.controller;
 
 import java.net.URI;
 import java.util.List;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.henriquealmeida.democrud.entities.User;
+import com.henriquealmeida.democrud.domain.User;
 import com.henriquealmeida.democrud.services.UserService;
 
 @RestController

@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.henriquealmeida.democrud.entities.Category;
+import com.henriquealmeida.democrud.domain.Category;
 import com.henriquealmeida.democrud.repositories.CategoryRepository;
 
 @Service

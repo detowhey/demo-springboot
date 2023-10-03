@@ -8,10 +8,10 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
-import com.henriquealmeida.democrud.entities.User;
+import com.henriquealmeida.democrud.domain.User;
 import com.henriquealmeida.democrud.repositories.UserRepository;
-import com.henriquealmeida.democrud.services.exception.DataBaseExcepetion;
-import com.henriquealmeida.democrud.services.exception.ResourceNotFoundException;
+import com.henriquealmeida.democrud.exceptions.DataBaseException;
+import com.henriquealmeida.democrud.exceptions.ResourceNotFoundException;
 
 @Service
 public class UserService {
@@ -38,7 +38,7 @@ public class UserService {
 		} catch (EmptyResultDataAccessException e) {
 			throw new ResourceNotFoundException(id);
 		} catch (DataIntegrityViolationException e) {
-			throw new DataBaseExcepetion(e.getMessage());
+			throw new DataBaseException(e.getMessage());
 		}
 		
 	}

@@ -6,12 +6,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.henriquealmeida.democrud.entities.Product;
+import com.henriquealmeida.democrud.domain.Product;
 import com.henriquealmeida.democrud.repositories.ProductRepository;
 
 @Service
 public class ProductService {
-
 	@Autowired
 	private ProductRepository repository;
 
