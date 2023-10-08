@@ -1,7 +1,10 @@
-FROM maven:3.8.3-eclipse-temurin-17 as build
+FROM maven:3.8.6-eclipse-temurin-17-alpine as build
 MAINTAINER Henrique de Freitas Almeida
+ENV APP_NAME demo-springboot
+COPY . /app
 WORKDIR /app
-RUN mvn package
-COPY target/demo-springboot-0.0.1-SNAPSHOT .
+#RUN mvn clean install
+#RUN mv -f target/*.jar ${APP_NAME}.jar
+#ENTRYPOINT ["java", "-jar", "${APP_NAME}.jar"]
+ENTRYPOINT ["java", "-jar"]
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","demo-springboot-0.0.1-SNAPSHOT.jar"]
