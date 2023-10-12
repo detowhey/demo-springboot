@@ -16,18 +16,20 @@ import com.henriquealmeida.democrud.services.ProductService;
 @RequestMapping(value = "/products")
 public class ProductController {
 
-	@Autowired
-	private ProductService service;
+    private final ProductService productService;
 
-	@GetMapping
-	public ResponseEntity<List<Product>> findAll() {
-		List<Product> list = service.findAll();
-		return ResponseEntity.ok().body(list);
-	}
-	
-	@GetMapping (value = "/{id}")
-	public ResponseEntity<Product> finById(@PathVariable Long id){
-		Product obj = service.findById(id);
-		return ResponseEntity.ok().body(obj);
-	}
+    @Autowired
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Product>> findAll() {
+        return ResponseEntity.ok().body(productService.findAll());
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Product> finById(@PathVariable Long id) {
+        return ResponseEntity.ok().body(productService.findById(id));
+    }
 }

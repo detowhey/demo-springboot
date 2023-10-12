@@ -1,5 +1,8 @@
-package com.henriquealmeida.democrud.exceptions;
+package com.henriquealmeida.democrud.exceptions.handler;
 
+import com.henriquealmeida.democrud.exceptions.DataBaseException;
+import com.henriquealmeida.democrud.exceptions.ResourceNotFoundException;
+import com.henriquealmeida.democrud.exceptions.StandardError;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

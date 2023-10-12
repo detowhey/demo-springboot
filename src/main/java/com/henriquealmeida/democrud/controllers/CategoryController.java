@@ -16,18 +16,20 @@ import com.henriquealmeida.democrud.services.CategoryService;
 @RequestMapping(value = "/categories")
 public class CategoryController {
 
-	@Autowired
-	private CategoryService service;
+    private final CategoryService categoryService;
 
-	@GetMapping
-	public ResponseEntity<List<Category>> findAll() {
-		List<Category> list = service.findAll();
-		return ResponseEntity.ok().body(list);
-	}
-	
-	@GetMapping (value = "/{id}")
-	public ResponseEntity<Category> finById(@PathVariable Long id){
-		Category obj = service.findById(id);
-		return ResponseEntity.ok().body(obj);
-	}
+    @Autowired
+    public CategoryController(CategoryService categoryService) {
+        this.categoryService = categoryService;
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Category>> findAll() {
+        return ResponseEntity.ok().body(categoryService.findAll());
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Category> finById(@PathVariable Long id) {
+        return ResponseEntity.ok().body(categoryService.findById(id));
+    }
 }
