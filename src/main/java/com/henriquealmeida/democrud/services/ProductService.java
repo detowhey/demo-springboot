@@ -1,8 +1,8 @@
 package com.henriquealmeida.democrud.services;
 
 import java.util.List;
-import java.util.Optional;
 
+import com.henriquealmeida.democrud.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,15 +11,18 @@ import com.henriquealmeida.democrud.repositories.ProductRepository;
 
 @Service
 public class ProductService {
-	@Autowired
-	private ProductRepository repository;
+    @Autowired
+    private ProductRepository productRepository;
 
-	public List<Product> findAll() {
-		return repository.findAll();
-	}
+    public List<Product> findAll() {
+        return productRepository.findAll();
+    }
 
-	public Product findById(Long id) {
-		Optional<Product> obj = repository.findById(id);
-		return obj.get();
-	}
+    public Product findById(Long id) {
+        return productRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
+    }
+
+    public Product insertProduct(Product product) {
+        return productRepository.save(product);
+    }
 }

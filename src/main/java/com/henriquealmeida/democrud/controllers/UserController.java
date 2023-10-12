@@ -3,7 +3,7 @@ package com.henriquealmeida.democrud.controllers;
 import java.net.URI;
 import java.util.List;
 
-import com.henriquealmeida.democrud.dto.UserRequestDTO;
+import com.henriquealmeida.democrud.dto.request.UserRequestDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
