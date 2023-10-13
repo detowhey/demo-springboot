@@ -1,25 +1,22 @@
 package com.henriquealmeida.democrud.controllers;
 
-import java.net.URI;
-import java.util.List;
-
-import com.henriquealmeida.democrud.domain.User;
+import com.henriquealmeida.democrud.domain.Product;
 import com.henriquealmeida.democrud.dto.response.ProductResponseDTO;
+import com.henriquealmeida.democrud.services.ProductService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import com.henriquealmeida.democrud.domain.Product;
-import com.henriquealmeida.democrud.services.ProductService;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/products")
 public class ProductController {
 
     private final ProductService productService;
-    private final ModelMapper modelMapper = new ModelMapper();
 
     @Autowired
     public ProductController(ProductService productService) {
@@ -38,8 +35,7 @@ public class ProductController {
 
     @PostMapping
     public ResponseEntity<ProductResponseDTO> insertNewProduct(ProductResponseDTO productResponseDTO) {
-
-        Product product = this.dtoToProduct(productResponseDTO);
+        Product product = this.convertToType(productResponseDTO, Product.class);
 
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -48,14 +44,10 @@ public class ProductController {
 
         return ResponseEntity
                 .created(uri)
-                .body(this.productToDTO(productService.insertProduct(product)));
+                .body(this.convertToType(productService.insertProduct(product), ProductResponseDTO.class));
     }
 
-    private ProductResponseDTO productToDTO(Product product) {
-        return modelMapper.map(product, ProductResponseDTO.class);
-    }
-
-    private Product dtoToProduct(ProductResponseDTO productResponseDTO) {
-        return modelMapper.map(productResponseDTO, Product.class);
+    private <T> T convertToType(Object source, Class<T> resultClass) {
+        return new ModelMapper().map(source, resultClass);
     }
 }
