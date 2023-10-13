@@ -2,7 +2,9 @@ package com.henriquealmeida.democrud.controllers;
 
 import com.henriquealmeida.democrud.domain.User;
 import com.henriquealmeida.democrud.dto.request.UserRequestDTO;
+import com.henriquealmeida.democrud.dto.response.UserResponseDTO;
 import com.henriquealmeida.democrud.services.UserService;
+import com.henriquealmeida.democrud.util.Convert;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,7 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final Convert convert = Convert.getInstance();
 
     @Autowired
     public UserController(UserService userService) {
@@ -29,20 +32,25 @@ public class UserController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<User> finById(@PathVariable Long id) {
-        return ResponseEntity.ok().body(userService.findById(id));
+    public ResponseEntity<UserResponseDTO> finById(@PathVariable Long id) {
+        return ResponseEntity.ok().body(
+                convert.convertToType(userService.findById(id), UserResponseDTO.class)
+        );
     }
 
     @PostMapping
-    public ResponseEntity<User> insert(@RequestBody UserRequestDTO userRequestDTO) {
-        User user = this.dtoToUser(userRequestDTO);
+    public ResponseEntity<UserResponseDTO> insert(@RequestBody UserRequestDTO userRequestDTO) {
+        User userRequest = convert.convertToType(userRequestDTO, User.class);
 
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(user.getId()).toUri();
+                .buildAndExpand(userRequest.getId()).toUri();
 
-        return ResponseEntity.created(uri).body(userService.insert(user));
+        User user = userService.insert(userRequest);
+        UserResponseDTO userResponse = convert.convertToType(user, UserResponseDTO.class);
+
+        return ResponseEntity.created(uri).body(userResponse);
     }
 
     @DeleteMapping(value = "{id}")

@@ -3,6 +3,7 @@ package com.henriquealmeida.democrud.controllers;
 import com.henriquealmeida.democrud.domain.Product;
 import com.henriquealmeida.democrud.dto.response.ProductResponseDTO;
 import com.henriquealmeida.democrud.services.ProductService;
+import com.henriquealmeida.democrud.util.Convert;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import java.util.List;
 public class ProductController {
 
     private final ProductService productService;
+    private final Convert convert = Convert.getInstance();
 
     @Autowired
     public ProductController(ProductService productService) {
@@ -35,7 +37,7 @@ public class ProductController {
 
     @PostMapping
     public ResponseEntity<ProductResponseDTO> insertNewProduct(ProductResponseDTO productResponseDTO) {
-        Product product = this.convertToType(productResponseDTO, Product.class);
+        Product product = convert.convertToType(productResponseDTO, Product.class);
 
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -44,10 +46,6 @@ public class ProductController {
 
         return ResponseEntity
                 .created(uri)
-                .body(this.convertToType(productService.insertProduct(product), ProductResponseDTO.class));
-    }
-
-    private <T> T convertToType(Object source, Class<T> resultClass) {
-        return new ModelMapper().map(source, resultClass);
+                .body(convert.convertToType(productService.insertProduct(product), ProductResponseDTO.class));
     }
 }
