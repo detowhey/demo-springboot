@@ -63,8 +63,4 @@ public class CustomerController {
     public ResponseEntity<Customer> update(@PathVariable Long id, @RequestBody Customer newDataCustomer) {
         return ResponseEntity.ok().body(customerService.update(id, newDataCustomer));
     }
-
-    private Customer dtoToUser(CustomerRequestDTO customerRequestDTO) {
-        return new ModelMapper().map(customerRequestDTO, Customer.class);
-    }
 }
