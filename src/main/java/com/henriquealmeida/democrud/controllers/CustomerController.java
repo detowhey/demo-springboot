@@ -53,9 +53,9 @@ public class CustomerController extends BaseController {
     }
 
     @DeleteMapping(value = "{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<String> delete(@PathVariable Long id) {
         customerService.delete(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().body("Customer with id " + id +" deleted");
     }
 
     @PutMapping(value = "{id}")
