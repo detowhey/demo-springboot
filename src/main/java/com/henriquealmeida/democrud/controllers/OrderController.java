@@ -2,6 +2,8 @@ package com.henriquealmeida.democrud.controllers;
 
 import java.util.List;
 
+import com.henriquealmeida.democrud.dto.response.OrderResponseDTO;
+import com.henriquealmeida.democrud.util.Convert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +19,7 @@ import com.henriquealmeida.democrud.services.OrderService;
 public class OrderController {
 
     private final OrderService orderService;
+    private final Convert convert = Convert.getInstance();
 
     @Autowired
     public OrderController(OrderService orderService) {
@@ -24,8 +27,11 @@ public class OrderController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Order>> findAll() {
-        return ResponseEntity.ok().body(orderService.findAll());
+    public ResponseEntity<List<OrderResponseDTO>> findAll() {
+
+        return ResponseEntity.ok().body(orderService.findAll().stream()
+                .map(order -> convert.convertToType(order, OrderResponseDTO.class))
+                .toList());
     }
 
     @GetMapping(value = "/{id}")

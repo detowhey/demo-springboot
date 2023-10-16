@@ -16,7 +16,7 @@ import java.util.List;
 @EqualsAndHashCode(of = "id")
 @Entity
 @Table(name = "tb_user")
-public class User {
+public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +30,7 @@ public class User {
     @OneToMany(mappedBy = "client")
     private List<Order> orders = new ArrayList<>();
 
-    public User(String name, String email, String phone, String password) {
+    public Customer(String name, String email, String phone, String password) {
         this.name = name;
         this.email = email;
         this.phone = phone;
