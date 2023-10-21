@@ -44,7 +44,8 @@ public class CustomerController extends BaseController {
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(customerRequest.getId()).toUri();
+                .buildAndExpand(customerRequest.getId())
+                .toUri();
 
         Customer customer = customerService.insert(customerRequest);
         CustomerResponseDTO userResponse = super.convertToType(customer, CustomerResponseDTO.class);
