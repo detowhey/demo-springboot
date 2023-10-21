@@ -9,15 +9,13 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 @Entity
 @Table(name = "tb_order_item")
-public class OrderItem implements Serializable {
+public class OrderItem {
 
     @EmbeddedId
     private OrderItemPK id = new OrderItemPK();

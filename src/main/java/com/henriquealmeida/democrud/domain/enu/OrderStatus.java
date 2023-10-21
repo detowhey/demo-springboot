@@ -1,7 +1,7 @@
 package com.henriquealmeida.democrud.domain.enu;
 
 public enum OrderStatus {
-    WAITING_PAIMENT(1),
+    AWAITING_PAYMENT(1),
     PAID(2),
     SHIPPED(3),
     DELIVERED(4),
@@ -9,7 +9,7 @@ public enum OrderStatus {
 
     private final int code;
 
-    private OrderStatus(int code) {
+    OrderStatus(int code) {
         this.code = code;
     }
 
