@@ -1,5 +1,8 @@
 package com.henriquealmeida.democrud.domain.enu;
 
+import lombok.Getter;
+
+@Getter
 public enum OrderStatus {
     AWAITING_PAYMENT(1),
     PAID(2),
@@ -13,9 +16,6 @@ public enum OrderStatus {
         this.code = code;
     }
 
-    public int getCode() {
-        return this.code;
-    }
 
     public static OrderStatus valueOf(int code) {
         for (OrderStatus value : OrderStatus.values()) {
