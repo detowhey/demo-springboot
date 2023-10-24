@@ -5,6 +5,7 @@ import com.henriquealmeida.democrud.dto.request.CustomerRequestDTO;
 import com.henriquealmeida.democrud.dto.response.CustomerResponseDTO;
 import com.henriquealmeida.democrud.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -13,7 +14,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/customer")
+@RequestMapping(value = "/customer", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CustomerController extends BaseController {
 
     private final CustomerService customerService;
@@ -56,7 +57,7 @@ public class CustomerController extends BaseController {
     @DeleteMapping(value = "{id}")
     public ResponseEntity<String> delete(@PathVariable Long id) {
         customerService.delete(id);
-        return ResponseEntity.ok().body("Customer with id " + id +" deleted");
+        return ResponseEntity.ok().body("Customer with id " + id + " deleted");
     }
 
     @PutMapping(value = "{id}")

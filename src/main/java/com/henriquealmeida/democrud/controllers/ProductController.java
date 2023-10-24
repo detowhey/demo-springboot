@@ -4,6 +4,7 @@ import com.henriquealmeida.democrud.domain.Product;
 import com.henriquealmeida.democrud.dto.response.ProductResponseDTO;
 import com.henriquealmeida.democrud.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -12,7 +13,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/products")
+@RequestMapping(value = "/products", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ProductController extends BaseController {
 
     private final ProductService productService;
