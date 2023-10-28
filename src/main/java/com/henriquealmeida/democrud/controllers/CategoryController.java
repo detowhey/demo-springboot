@@ -20,7 +20,7 @@ import java.util.List;
 
 @Tag(name = "Categories data endpoint", description = "REST service for searching categories of products data")
 @RestController
-@RequestMapping(value = "/categories", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/categories", produces = MediaType.APPLICATION_JSON_VALUE, headers = "Bearer=token")
 public class CategoryController extends BaseController {
 
     private final CategoryService categoryService;
