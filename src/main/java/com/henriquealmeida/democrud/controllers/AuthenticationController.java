@@ -54,7 +54,10 @@ public class AuthenticationController {
             }
     )
     @PostMapping("/login")
-    public ResponseEntity<LoginResponseDTO> loginUser(@RequestHeader(name = "api_key", required = false) @RequestBody @Valid AuthenticationRequestDTO authenticationRequestDTO) {
+    public ResponseEntity<LoginResponseDTO> loginUser(
+            @RequestHeader(name = "api_key", required = false)
+            @RequestBody @Valid AuthenticationRequestDTO authenticationRequestDTO
+    ) {
         var userNamePassword = new UsernamePasswordAuthenticationToken(authenticationRequestDTO.login(), authenticationRequestDTO.password());
         var auth = this.authenticationManager.authenticate(userNamePassword);
         var token = tokenService.generateToken((User) auth.getPrincipal());
