@@ -40,7 +40,7 @@ docker-compose up
 ```
 
 ### Base URL
-http://localhost:8080/fighter
+http://localhost:8080/
 
 ### [pgAdmin (PostgreSQL tool)](https://www.pgadmin.org/)
 
