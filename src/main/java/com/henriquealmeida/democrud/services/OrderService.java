@@ -1,26 +1,33 @@
 package com.henriquealmeida.democrud.services;
 
 import java.util.List;
-import java.util.Optional;
 
+import com.henriquealmeida.democrud.exceptions.ResourceNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.henriquealmeida.democrud.entities.Order;
+import com.henriquealmeida.democrud.domain.Order;
 import com.henriquealmeida.democrud.repositories.OrderRepository;
 
+@Slf4j
 @Service
 public class OrderService {
 
-	@Autowired
-	private OrderRepository repository;
+    private final OrderRepository orderRepository;
 
-	public List<Order> findAll() {
-		return repository.findAll();
-	}
+    @Autowired
+    public OrderService(OrderRepository orderRepository) {
+        this.orderRepository = orderRepository;
+    }
 
-	public Order findById(Long id) {
-		Optional<Order> obj = repository.findById(id);
-		return obj.get();
-	}
+    public List<Order> findAll() {
+        log.info("Return all orders");
+        return orderRepository.findAll();
+    }
+
+    public Order findById(Long id) {
+        log.info("Find order by id {}", id);
+        return orderRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
+    }
 }

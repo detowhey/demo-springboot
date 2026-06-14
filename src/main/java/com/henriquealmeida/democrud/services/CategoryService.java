@@ -1,26 +1,33 @@
 package com.henriquealmeida.democrud.services;
 
 import java.util.List;
-import java.util.Optional;
 
+import com.henriquealmeida.democrud.exceptions.ResourceNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.henriquealmeida.democrud.entities.Category;
+import com.henriquealmeida.democrud.domain.Category;
 import com.henriquealmeida.democrud.repositories.CategoryRepository;
 
+@Slf4j
 @Service
 public class CategoryService {
 
-	@Autowired
-	private CategoryRepository repository;
+    private final CategoryRepository categoryRepository;
 
-	public List<Category> findAll() {
-		return repository.findAll();
-	}
+    @Autowired
+    public CategoryService(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
+    }
 
-	public Category findById(Long id) {
-		Optional<Category> obj = repository.findById(id);
-		return obj.get();
-	}
+    public List<Category> findAll() {
+        log.info("Return all categories");
+        return categoryRepository.findAll();
+    }
+
+    public Category findById(Long id) {
+        log.info("Find category by id {}", id);
+        return categoryRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
+    }
 }
