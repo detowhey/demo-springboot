@@ -27,7 +27,7 @@ public class CategoryService {
     }
 
     public Category findById(Long id) {
-        log.info("Find category by id" + id);
+        log.info("Find category by id {}", id);
         return categoryRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
     }
 }

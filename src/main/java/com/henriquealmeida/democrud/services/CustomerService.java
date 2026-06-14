@@ -29,7 +29,7 @@ public class CustomerService {
     }
 
     public Customer findById(Long id) {
-        log.info("Find customer by id " + id);
+        log.info("Find customer by id {}", id);
         return customerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
@@ -53,7 +53,7 @@ public class CustomerService {
 
     public Customer update(Long id, Customer newDataCustomer) {
         Customer oldDataCustomer = this.findById(id);
-        log.info("Update a customer with id " + id);
+        log.info("Update a customer with id {}", id);
         this.updateData(oldDataCustomer, newDataCustomer);
         return customerRepository.save(oldDataCustomer);
     }

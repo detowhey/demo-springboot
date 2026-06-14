@@ -27,7 +27,7 @@ public class OrderService {
     }
 
     public Order findById(Long id) {
-        log.info("Find order by id " + id);
+        log.info("Find order by id {}", id);
         return orderRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
     }
 }
